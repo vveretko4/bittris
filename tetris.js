@@ -144,6 +144,7 @@ function gameLoop() {
 }
 
 function startGame() {
+    console.log("Game starting...");
     board = Array(BOARD_HEIGHT).fill().map(() => Array(BOARD_WIDTH).fill(0));
     score = 0;
     level = 1;
@@ -151,7 +152,11 @@ function startGame() {
     levelElement.textContent = level;
     newPiece();
     if (gameLoop) clearInterval(gameLoop);
-    gameLoop = setInterval(gameLoop, 1000 / level);
+    gameLoop = setInterval(() => {
+        moveDown();
+        drawBoard();
+        drawPiece();
+    }, 1000 / level);
 }
 
 function gameOver() {
@@ -172,5 +177,29 @@ document.addEventListener('keydown', (e) => {
 
 startButton.addEventListener('click', startGame);
 
+console.log("Tetris script loaded");
+
+// At the beginning of your startGame function
+function startGame() {
+    console.log("startGame function called");
+    // ... rest of the function
+}
+
+// After your event listener setup
+console.log("Event listener attached");
+
 // Telegram Mini App specific code
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    console.log("DOM fully loaded and parsed");
+    const startButton = document.getElementById('start-button');
+    if (startButton) {
+        startButton.addEventListener('click', startGame);
+        console.log("Start button listener attached");
+    } else {
+        console.error("Start button not found");
+    }
+});
+
+
 window.Telegram.WebApp.ready();
