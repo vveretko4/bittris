@@ -14,17 +14,18 @@ let level = 1;
 let gameInterval;
 
 const shapes = [
-    [[1, 1, 1, 1]],
-    [[1, 1], [1, 1]],
-    [[1, 1, 1], [0, 1, 0]],
-    [[1, 1, 1], [1, 0, 0]],
-    [[1, 1, 1], [0, 0, 1]],
-    [[1, 1, 0], [0, 1, 1]],
-    [[0, 1, 1], [1, 1, 0]]
+    { shape: [[1, 1, 1, 1]], color: '#FF0D72' },  // I
+    { shape: [[1, 1], [1, 1]], color: '#0DC2FF' },  // O
+    { shape: [[1, 1, 1], [0, 1, 0]], color: '#0DFF72' },  // T
+    { shape: [[1, 1, 1], [1, 0, 0]], color: '#F538FF' },  // L
+    { shape: [[1, 1, 1], [0, 0, 1]], color: '#FF8E0D' },  // J
+    { shape: [[1, 1, 0], [0, 1, 1]], color: '#FFE138' },  // S
+    { shape: [[0, 1, 1], [1, 1, 0]], color: '#3877FF' }   // Z
 ];
 
 let currentPiece = {
     shape: null,
+    color: null,
     x: 0,
     y: 0
 };
@@ -36,26 +37,32 @@ function drawBoard() {
     for (let y = 0; y < BOARD_HEIGHT; y++) {
         for (let x = 0; x < BOARD_WIDTH; x++) {
             if (board[y][x]) {
-                ctx.fillStyle = '#000';
+                ctx.fillStyle = board[y][x];
                 ctx.fillRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+                ctx.strokeStyle = '#fff';
+                ctx.strokeRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
             }
         }
     }
 }
 
 function drawPiece() {
-    ctx.fillStyle = '#f00';
+    ctx.fillStyle = currentPiece.color;
     for (let y = 0; y < currentPiece.shape.length; y++) {
         for (let x = 0; x < currentPiece.shape[y].length; x++) {
             if (currentPiece.shape[y][x]) {
                 ctx.fillRect((currentPiece.x + x) * BLOCK_SIZE, (currentPiece.y + y) * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+                ctx.strokeStyle = '#fff';
+                ctx.strokeRect((currentPiece.x + x) * BLOCK_SIZE, (currentPiece.y + y) * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
             }
         }
     }
 }
 
 function newPiece() {
-    currentPiece.shape = shapes[Math.floor(Math.random() * shapes.length)];
+    const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
+    currentPiece.shape = randomShape.shape;
+    currentPiece.color = randomShape.color;
     currentPiece.x = Math.floor(BOARD_WIDTH / 2) - Math.floor(currentPiece.shape[0].length / 2);
     currentPiece.y = 0;
 
@@ -81,7 +88,7 @@ function mergePiece() {
     for (let y = 0; y < currentPiece.shape.length; y++) {
         for (let x = 0; x < currentPiece.shape[y].length; x++) {
             if (currentPiece.shape[y][x]) {
-                board[currentPiece.y + y][currentPiece.x + x] = 1;
+                board[currentPiece.y + y][currentPiece.x + x] = currentPiece.color;
             }
         }
     }
