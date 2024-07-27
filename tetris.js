@@ -204,14 +204,20 @@ document.addEventListener('keydown', (e) => {
 startButton.addEventListener('click', startGame);
 pauseButton.addEventListener('click', pauseGame);
 
-document.addEventListener('DOMContentLoaded', () => {
+console.log("Tetris script loaded");
+
+// Telegram Mini App specific code
+
+document.addEventListener('DOMContentLoaded', (event) => {
     console.log("DOM fully loaded and parsed");
     if (startButton) {
+        startButton.addEventListener('click', startGame);
         console.log("Start button listener attached");
     } else {
         console.error("Start button not found");
     }
     if (pauseButton) {
+        pauseButton.addEventListener('click', pauseGame);
         console.log("Pause button listener attached");
     } else {
         console.error("Pause button not found");
@@ -219,5 +225,3 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 window.Telegram.WebApp.ready();
-
-console.log("Tetris script loaded");
