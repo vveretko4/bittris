@@ -3,6 +3,7 @@ const ctx = canvas.getContext('2d');
 const scoreElement = document.getElementById('score');
 const levelElement = document.getElementById('level');
 const startButton = document.getElementById('start-button');
+const pauseButton = document.getElementById('pause-button');
 
 const BLOCK_SIZE = 20;
 const BOARD_WIDTH = 10;
@@ -12,6 +13,7 @@ let board = Array(BOARD_HEIGHT).fill().map(() => Array(BOARD_WIDTH).fill(0));
 let score = 0;
 let level = 1;
 let gameInterval;
+let isPaused = false;
 
 const shapes = [
     { shape: [[1, 1, 1, 1]], color: '#FF0D72' },  // I
@@ -147,9 +149,11 @@ function rotate() {
 }
 
 function gameLoop() {
-    moveDown();
-    drawBoard();
-    drawPiece();
+    if (!isPaused) {
+        moveDown();
+        drawBoard();
+        drawPiece();
+    }
 }
 
 function startGame() {
@@ -162,6 +166,18 @@ function startGame() {
     newPiece();
     clearInterval(gameInterval); // Clear previous game interval if any
     gameInterval = setInterval(gameLoop, 1000 / level);
+    isPaused = false; // Ensure the game is not paused when starting
+}
+
+function pauseGame() {
+    isPaused = !isPaused;
+    if (isPaused) {
+        clearInterval(gameInterval);
+        pauseButton.textContent = 'Resume Game'; // Change button text to indicate resume
+    } else {
+        gameInterval = setInterval(gameLoop, 1000 / level);
+        pauseButton.textContent = 'Pause Game'; // Change button text back to pause
+    }
 }
 
 function gameOver() {
@@ -170,15 +186,20 @@ function gameOver() {
 }
 
 document.addEventListener('keydown', (e) => {
-    switch (e.keyCode) {
-        case 37: moveLeft(); break;
-        case 39: moveRight(); break;
-        case 40: moveDown(); break;
-        case 38: rotate(); break;
+    if (!isPaused) {
+        switch (e.keyCode) {
+            case 37: moveLeft(); break;
+            case 39: moveRight(); break;
+            case 40: moveDown(); break;
+            case 38: rotate(); break;
+        }
+        drawBoard();
+        drawPiece();
     }
-    drawBoard();
-    drawPiece();
 });
+
+startButton.addEventListener('click', startGame);
+pauseButton.addEventListener('click', pauseGame);
 
 document.addEventListener('DOMContentLoaded', (event) => {
     console.log("DOM fully loaded and parsed");
@@ -187,6 +208,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
         console.log("Start button listener attached");
     } else {
         console.error("Start button not found");
+    }
+    if (pauseButton) {
+        pauseButton.addEventListener('click', pauseGame);
+        console.log("Pause button listener attached");
+    } else {
+        console.error("Pause button not found");
     }
 });
 
