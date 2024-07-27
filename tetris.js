@@ -169,6 +169,7 @@ function startGame() {
     clearInterval(gameInterval); // Clear previous game interval if any
     gameInterval = setInterval(gameLoop, 1000 / level);
     isPaused = false; // Ensure the game is not paused when starting
+    pauseButton.textContent = 'Pause Game'; // Ensure button text is set correctly
 }
 
 function pauseGame() {
@@ -203,16 +204,14 @@ document.addEventListener('keydown', (e) => {
 startButton.addEventListener('click', startGame);
 pauseButton.addEventListener('click', pauseGame);
 
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', () => {
     console.log("DOM fully loaded and parsed");
     if (startButton) {
-        startButton.addEventListener('click', startGame);
         console.log("Start button listener attached");
     } else {
         console.error("Start button not found");
     }
     if (pauseButton) {
-        pauseButton.addEventListener('click', pauseGame);
         console.log("Pause button listener attached");
     } else {
         console.error("Pause button not found");
