@@ -77,7 +77,9 @@ function isValidMove(x, y, shape) {
     for (let i = 0; i < shape.length; i++) {
         for (let j = 0; j < shape[i].length; j++) {
             if (shape[i][j]) {
-                if (y + i >= BOARD_HEIGHT || x + j < 0 || x + j >= BOARD_WIDTH || board[y + i][x + j]) {
+                const newX = x + j;
+                const newY = y + i;
+                if (newY >= BOARD_HEIGHT || newX < 0 || newX >= BOARD_WIDTH || board[newY][newX]) {
                     return false;
                 }
             }
@@ -201,22 +203,4 @@ document.addEventListener('keydown', (e) => {
 startButton.addEventListener('click', startGame);
 pauseButton.addEventListener('click', pauseGame);
 
-document.addEventListener('DOMContentLoaded', (event) => {
-    console.log("DOM fully loaded and parsed");
-    if (startButton) {
-        startButton.addEventListener('click', startGame);
-        console.log("Start button listener attached");
-    } else {
-        console.error("Start button not found");
-    }
-    if (pauseButton) {
-        pauseButton.addEventListener('click', pauseGame);
-        console.log("Pause button listener attached");
-    } else {
-        console.error("Pause button not found");
-    }
-});
-
-window.Telegram.WebApp.ready();
-
-console.log("Tetris script loaded");
+document.addEventListener('DOMContentLoaded', (
