@@ -3,18 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Tetris Mini App</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="path/to/your/favicon.ico" type="image/x-icon">
 </head>
 <body>
-<div id="game-container">
-    <canvas id="tetris-canvas" width="240" height="400"></canvas>
-    <div id="game-info">
-        <p>Score: <span id="score">0</span></p>
-        <p>Level: <span id="level">1</span></p>
-        <button id="start-button">Start Game</button>
+    <div id="game-container" aria-label="Tetris game board">
+        <canvas id="tetris-canvas" width="240" height="400" aria-label="Tetris gameplay area"></canvas>
+        <div id="game-info">
+            <p>Score: <span id="score" aria-live="polite">0</span></p>
+            <p>Level: <span id="level" aria-live="polite">1</span></p>
+            <button id="start-button">Start Game</button>
+        </div>
     </div>
-</div>
+
+    <noscript>This game requires JavaScript to run. Please enable JavaScript in your browser settings.</noscript>
+
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="tetris.js"></script>
 </body>
