@@ -146,7 +146,7 @@ function gameLoop() {
 }
 
 function startGame() {
-    console.log("Game starting...");
+    console.log("startGame function called");
     board = Array(BOARD_HEIGHT).fill().map(() => Array(BOARD_WIDTH).fill(0));
     score = 0;
     level = 1;
@@ -173,20 +173,6 @@ document.addEventListener('keydown', (e) => {
     drawPiece();
 });
 
-startButton.addEventListener('click', startGame);
-
-console.log("Tetris script loaded");
-
-// At the beginning of your startGame function
-function startGame() {
-    console.log("startGame function called");
-    // ... rest of the function
-}
-
-// After your event listener setup
-console.log("Event listener attached");
-
-// Telegram Mini App specific code
 document.addEventListener('DOMContentLoaded', (event) => {
     console.log("DOM fully loaded and parsed");
     const startButton = document.getElementById('start-button');
@@ -199,3 +185,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 window.Telegram.WebApp.ready();
+
+console.log("Tetris script loaded");
