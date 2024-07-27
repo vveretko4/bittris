@@ -175,7 +175,6 @@ document.addEventListener('keydown', (e) => {
 
 document.addEventListener('DOMContentLoaded', (event) => {
     console.log("DOM fully loaded and parsed");
-    const startButton = document.getElementById('start-button');
     if (startButton) {
         startButton.addEventListener('click', startGame);
         console.log("Start button listener attached");
