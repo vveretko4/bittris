@@ -42,6 +42,17 @@ body {
     outline-offset: 2px;
 }
 
+#pause-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+
 /* Responsive design for smaller screens */
 @media (max-width: 600px) {
     #tetris-canvas {
