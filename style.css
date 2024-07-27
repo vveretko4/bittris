@@ -30,4 +30,27 @@ body {
     color: white;
     border: none;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#start-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+#start-button:focus {
+    outline: 2px solid #333; /* Focus outline for accessibility */
+    outline-offset: 2px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 600px) {
+    #tetris-canvas {
+        width: 180px;
+        height: 300px;
+    }
+
+    #start-button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
 }
