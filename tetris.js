@@ -203,4 +203,22 @@ document.addEventListener('keydown', (e) => {
 startButton.addEventListener('click', startGame);
 pauseButton.addEventListener('click', pauseGame);
 
-document.addEventListener('DOMContentLoaded', (
+document.addEventListener('DOMContentLoaded', (event) => {
+    console.log("DOM fully loaded and parsed");
+    if (startButton) {
+        startButton.addEventListener('click', startGame);
+        console.log("Start button listener attached");
+    } else {
+        console.error("Start button not found");
+    }
+    if (pauseButton) {
+        pauseButton.addEventListener('click', pauseGame);
+        console.log("Pause button listener attached");
+    } else {
+        console.error("Pause button not found");
+    }
+});
+
+window.Telegram.WebApp.ready();
+
+console.log("Tetris script loaded");
