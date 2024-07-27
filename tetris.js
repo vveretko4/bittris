@@ -11,7 +11,7 @@ const BOARD_HEIGHT = 20;
 let board = Array(BOARD_HEIGHT).fill().map(() => Array(BOARD_WIDTH).fill(0));
 let score = 0;
 let level = 1;
-let gameLoop;
+let gameInterval;
 
 const shapes = [
     [[1, 1, 1, 1]],
@@ -102,6 +102,8 @@ function clearLines() {
         if (score >= level * 1000) {
             level++;
             levelElement.textContent = level;
+            clearInterval(gameInterval);
+            gameInterval = setInterval(gameLoop, 1000 / level);
         }
     }
 }
@@ -151,16 +153,12 @@ function startGame() {
     scoreElement.textContent = score;
     levelElement.textContent = level;
     newPiece();
-    if (gameLoop) clearInterval(gameLoop);
-    gameLoop = setInterval(() => {
-        moveDown();
-        drawBoard();
-        drawPiece();
-    }, 1000 / level);
+    clearInterval(gameInterval); // Clear previous game interval if any
+    gameInterval = setInterval(gameLoop, 1000 / level);
 }
 
 function gameOver() {
-    clearInterval(gameLoop);
+    clearInterval(gameInterval);
     alert('Game Over! Your score: ' + score);
 }
 
@@ -189,7 +187,6 @@ function startGame() {
 console.log("Event listener attached");
 
 // Telegram Mini App specific code
-
 document.addEventListener('DOMContentLoaded', (event) => {
     console.log("DOM fully loaded and parsed");
     const startButton = document.getElementById('start-button');
@@ -200,6 +197,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
         console.error("Start button not found");
     }
 });
-
 
 window.Telegram.WebApp.ready();
